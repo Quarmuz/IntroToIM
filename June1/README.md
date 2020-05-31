@@ -1,3 +1,3 @@
 first assignment
 
-![]test.jpg
+![](test.jpg)
