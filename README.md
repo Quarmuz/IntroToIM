@@ -1,2 +1,2 @@
-# IntroToIM
+## IntroToIM
 introduction to IM
