@@ -117,3 +117,11 @@ void setup(){                                                            //the s
   arc(255, 270, near(45, 10), near(45, 10), 0, PI, CHORD);
   
 }
+
+### FURTHER DEVELOPEMENT
+
+- more 'artistic' adjustments
+  - The shapes are at this point very simplified, hovever making them more complex can aim at making the images more realistic.
+  - Potential collaboration with more artistic person for implementing semi-random generation on other program. 
+- dynamic background 
+  - The current position of background circles are store in a very long array. Adding an associated array with velocities would easily allow for dynamic bacground with circles moving and bouncing from the canvass boundaries.
