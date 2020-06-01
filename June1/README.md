@@ -118,7 +118,7 @@ void setup(){                                                            //the s
   
 }
 
-### FURTHER DEVELOPEMENT
+### FURTHER DEVELOPMENT
 
 - more 'artistic' adjustments
   - The shapes are at this point very simplified, hovever making them more complex can aim at making the images more realistic.
