@@ -1,10 +1,10 @@
-##ASSIGNMENT ONE
+## ASSIGNMENT ONE
 
-###RATIONALE
+### RATIONALE
 
 Due to relatively low confidence in my artistic skills, I have chosen to depict a jolly, cartoonish and little crude figure of how do I feel. Since my mood is subjected to so many factors it may appear random at some times, I have decided for semi-random generation using randomSeed function for consistency. The results along with associated seeds are presented below.
 
-###RESUTLS
+### RESUTLS
 
 - Seed: 2\
 ![](2.png)
@@ -21,7 +21,7 @@ Due to relatively low confidence in my artistic skills, I have chosen to depict 
 - Seed: 44\
 ![](44.png)
 
-###CODE
+### CODE
 
 float near(float a, float b) { return a + (random(200*b)-100*b)/100 ; }  //frequently used function generating a random floating point number in some neighborhood of given point
 
