@@ -7,18 +7,23 @@ Due to relatively low confidence in my artistic skills, I have chosen to depict 
 ###RESUTLS
 
 - Seed: 2
+
 ![](2.png)
 
 - Seed: 7
+
 ![](7.png)
 
 - Seed: 8
+
 ![](8.png)
 
 - Seed: 30
+
 ![](30.png)
 
 - Seed: 44
+
 ![](44.png)
 
 ###CODE
