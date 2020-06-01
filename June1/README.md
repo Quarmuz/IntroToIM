@@ -21,6 +21,8 @@ Due to relatively low confidence in my artistic skills, I have chosen to depict 
 - Seed: 44\
 ![](44.png)
 
+I wish my mood was always that happy.
+
 ### CODE
 
 float near(float a, float b) { return a + (random(200*b)-100*b)/100 ; }  //frequently used function generating a random floating point number in some neighborhood of given point
