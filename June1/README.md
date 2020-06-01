@@ -1,7 +1,7 @@
 first assignment
 
-![](2.jpg)
-![](7.jpg)
-![](8.jpg)
-![](30.jpg)
-![](44.jpg)
+![](2.png)
+![](7.png)
+![](8.png)
+![](30.png)
+![](44.png)
