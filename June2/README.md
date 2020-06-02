@@ -26,6 +26,7 @@ Initially the program was allowing only one curve at a time, however that option
 
 
 ### CODE
+#### comment - for some reason git editor recognized only part of the code as the code, not sure why
 
 float near(float a, float b) {                      //random within certain neighborhood function
   return a + (random(200*b)-100*b)/100;
