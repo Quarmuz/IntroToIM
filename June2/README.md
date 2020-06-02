@@ -24,6 +24,9 @@ Initially the program was allowing only one curve at a time, however that option
 - ...\
 ![](5.png)
 
+- after indefinitely long time
+![](6.png)
+
 
 ### CODE
 #### comment - for some reason git editor recognized only part of the code as the code, not sure why
