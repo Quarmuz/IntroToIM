@@ -1,4 +1,4 @@
-class Vec{
+class Vec{                                //2D vector class
   
   float X;
   float Y;
@@ -22,7 +22,7 @@ class Vec{
   
 }
 
-class Circle{
+class Circle{                             //Circle superclass
   
   float rad;
   Vec  pos;
@@ -36,45 +36,45 @@ class Circle{
     col = c;
   }
   
-  boolean inside(float X, float Y){
+  boolean inside(float X, float Y){       //is given point inside the circle
     return ( (pos.X-X)*(pos.X-X)+(pos.Y-Y)*(pos.Y-Y) < rad*rad );
   }
   
-  boolean inside(Circle C){
+  boolean inside(Circle C){               //is given circle inside the circle
     return inside(C.pos.X, C.pos.Y);
   }
   
-  boolean touch(Circle C){
+  boolean touch(Circle C){                //are the two circles touching
     return ( (pos.X-C.pos.X)*(pos.X-C.pos.X)+(pos.Y-C.pos.Y)*(pos.Y-C.pos.Y) < (rad+C.rad)*(rad+C.rad) && (pos.X-C.pos.X)*(vel.X-C.vel.X)+(pos.Y-C.pos.Y)*(vel.Y-C.vel.Y) < 0 );
   }
   
-  void move(){
+  void move(){                            //move the circle by its velocity
     pos = pos.add(vel);
   }
   
-  void display(){
+  void display(){                         //display the circle
     fill(col);
     circle(pos.X, pos.Y, rad*2);
   }
   
-  void collidewalls(){
+  void collidewalls(){                    //collide with frame walls
     if( (pos.X<rad && vel.X<0) || (pos.X>600-rad && vel.X>0) ) vel.X = -vel.X;
     if( (pos.Y<rad && vel.Y<0) || (pos.Y>600-rad && vel.Y>0) ) vel.Y = -vel.Y;
   }
   
-  void slow(){
+  void slow(){                            //slow down by given friction coefficient (fully stop is small enough)
     if(vel.len()<0.1) vel=new Vec(0, 0);
     else vel = vel.add(-fric*vel.X, -fric*vel.Y);
   }
   
-  void update(){
+  void update(){                          //facade function, evolve circle in time 
     display();
     collidewalls();
     move();
     slow();
   }
   
-  void collide(Circle C){
+  void collide(Circle C){                 //collide with other circle (exchange radial velocity component)
     float t = atan( (pos.Y-C.pos.Y)/(pos.X-C.pos.X) );
     float vr = vel.X*cos(t) + vel.Y*sin(t);
     float vt = vel.X*sin(t) + vel.Y*cos(t);
@@ -86,7 +86,7 @@ class Circle{
   
 }
 
-class Player extends Circle{
+class Player extends Circle{              //Player class (red), addin the sling to display
   
   boolean pull;
   
@@ -116,7 +116,7 @@ class Player extends Circle{
 }
 
 
-class Puck extends Circle{
+class Puck extends Circle{                //Puck class (white)
   
   Puck(float r, float pX, float pY){
     super(r, pX, pY, 0, 0, color(255, 255, 255));
@@ -125,7 +125,7 @@ class Puck extends Circle{
 }
 
 
-class Hole extends Circle{
+class Hole extends Circle{                //Hole class (black)
   
   Hole(float r, float pX, float pY){
     super(r, pX, pY, 0, 0, color(0, 0, 0));
@@ -134,17 +134,17 @@ class Hole extends Circle{
 }
 
 
-float fric = 0.01;
-ArrayList<Player> P;
+float fric = 0.01;                        //global friction (actually resistance) parameter
+ArrayList<Player> P;                      //Circle lists
 ArrayList<Puck> C;
 ArrayList<Hole> H;
-Player Pi, Pj;
+Player Pi, Pj;                            //Used for current Circle object
 Puck Ci, Cj;
 Hole Hi;
-int WIN;
+int WIN;                                  //game control parameter
 
 
-void setup(){
+void setup(){                             //setup function, set size, framerate, stroke and new game
 
   size(600, 600);
   frameRate(25);
@@ -154,7 +154,7 @@ void setup(){
 
 }
 
-void setNew(){
+void setNew(){                            //initiate 3 circle lists of randomised sizes (at least 1)
 
   P = new ArrayList<Player>(0);
   C = new ArrayList<Puck>(0);
@@ -172,7 +172,7 @@ void setNew(){
 }
 
 
-void draw(){
+void draw(){                              //draw function, not much here, check the game parameter and delegate the drawing
   
   if(WIN>0){
     winScreen();
@@ -185,7 +185,7 @@ void draw(){
 }
 
 
-void winScreen(){
+void winScreen(){                         //win screen, click to continue
 
   background(0, 255, 0);
 
@@ -194,7 +194,7 @@ void winScreen(){
 }
 
 
-void loseScreen(){
+void loseScreen(){                        //lose screen, click to continue
 
   background(0, 0, 0);
   
@@ -203,11 +203,11 @@ void loseScreen(){
 }
 
 
-void play(){
+void play(){                              //play screen, he actual part
 
-  background(255);
+  background(255);                        //set background
   
-  for(int i=0; i<H.size(); i++){
+  for(int i=0; i<H.size(); i++){          //for all Holes, check for Players and Pucks falling in
     Hi = H.get(i);
     Hi.update();
     for(int j=0; j<P.size(); j++){
@@ -220,7 +220,7 @@ void play(){
     }
   }
   
-  for(int i=0; i<P.size(); i++){
+  for(int i=0; i<P.size(); i++){          //for all Players, check for collisions with Players (except self) and Pucks
     Player Pi = P.get(i);
     Pi.update();
     for(int j=0; j<P.size(); j++){
@@ -233,7 +233,7 @@ void play(){
     }
   }
   
-  for(int i=0; i<C.size(); i++){
+  for(int i=0; i<C.size(); i++){          //for all Pucks, check for collissions with Pucks (except self)
     Ci = C.get(i);
     Ci.update();
     for(int j=0; j<C.size(); j++){
@@ -242,7 +242,7 @@ void play(){
     }
   }
   
-  if (P.size()==0) WIN = -1;
+  if (P.size()==0) WIN = -1;              //lose if no Players are present, win if no pucks are present
   else if(C.size()==0) WIN = 1;
 
 }
