@@ -1,16 +1,21 @@
 ## ASSIGNMENT TWO (PART 1)
+### Data representation of natural language
 
 ### RATIONALE
 
+It would be to bold to call it intro to natural language processing, but it is somewhere in that direction. The program analyses given text and outputs words by length statistics. The upward bars show the total instances of the words of given length, while the downward bars include only different word instances.
 
+The graph is scaled in both X and Y direction to appear most conveniently.
+
+Instead of .csv file a .txt file was used, as it processes the text in natural language. I think it can still be considered a data analysis.
 
 
 ### RESUTLS
 
-- \
+- short text, Pan Tadeusz, Inwokacja. The invocation to Polish national poem (in Polish)\
 ![](1.png)
 
-- \
+- longet text, Macbeth act 1 (in English)\
 ![](2.png)
 
 
@@ -133,6 +138,7 @@ void getData(){                                           //compute the data
 
 
 ## ASSIGNMENT TWO (PART 2)
+### Rotating triangles with no big idea behind them
 
 ### RATIONALE
 
