@@ -129,7 +129,7 @@ void getData(){                                           //compute the data
   - for longer inputs, specific language is expected to create a distinct curve. After proper sampling this can be used for language recognition without knowing the meaning of words.
 
 
-\
+\\
 
 
 ## ASSIGNMENT TWO (PART 2)
