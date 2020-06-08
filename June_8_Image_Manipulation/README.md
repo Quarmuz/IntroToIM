@@ -2,6 +2,8 @@
 
 ### RATIONALE
 
+This project was a collaboration between me (Krzysztof 'Kris' Warmuz) and Vivi Zhu.
+
 
 
 
