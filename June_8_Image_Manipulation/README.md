@@ -49,7 +49,6 @@ int number;
 String text;
 int WIN;
 
-
 void getPhoto(){                                //load random photo and answer, reset game state and text
   
   number = 1+int(random(images.length-1));
@@ -86,8 +85,8 @@ void setup(){                                   //setup function
   stroke(0);
   noFill();
 
-  images = new PImage[] {loadImage("start.png"), loadImage("dog.png"), loadImage("tree.png")};
-  answers = new String[] {"start", "dog", "tree"};
+  images = new PImage[] {loadImage("start.png"), loadImage("dog.png"), loadImage("tree.png"),loadImage("water.jpg"),loadImage("cloud.png"),loadImage("cow.png"),loadImage("milk.jpg"),loadImage("fish.jpg"),loadImage("phone.png"),loadImage("pen.jpg"),loadImage("flower.png"),loadImage("apple.jpg"),loadImage("banana.jpg"),loadImage("kiwi.jpg"),loadImage("book.jpg"),loadImage("orange.jpg")};
+  answers = new String[] {"start", "dog", "tree", "water", "cloud", "cow", "milk", "fish", "phone", "pen", "flower", "apple", "banana", "kiwi", "book", "orange"};
   
   number = 0;
   photo = images[0];
@@ -95,7 +94,10 @@ void setup(){                                   //setup function
   WIN = 0;
   text = "";
 
+
 }
+
+
 
 void draw(){                                    //draw function
                                                 //depending on game state delegate functionality to subfunctions
