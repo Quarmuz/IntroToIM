@@ -2,9 +2,11 @@
 
 ### RATIONALE
 
-This project was a collaboration between me (Krzysztof 'Kris' Warmuz) and Vivi Zhu.
+This project was a collaboration between me (Krzysztof 'Kris' Warmuz) and Vivi Zhu. It is the natural progression of the simple example we designed during the class groupwork and our joined efforts allowed to create something more remarkable than the previous homeworks. The distribution of work was according to area of 'specialisation', I did most of the coding, while most of the design choices, graphic choices and graphic creation was on Vivi's side.
 
+The game is a type of pictionary-vocab game. The player is presented an image and guesses its name via text input. The program recognizes the answer as either valid or invalid, informs the player and rolls another image. Also, a short tutorial with instruction is present at the beginning.
 
+Also, this can be considered a playable demo. Like really, the pictures are trivial and not many.
 
 
 ### RESUTLS
@@ -163,8 +165,14 @@ void keyPressed() {                             //button action listener, text i
 - consider some design choices
   - the input answer may stay with disabled input after verification (currently causing too much coding trouble to be resoved quickly)
   - upon wrong answer the image may stay instead of being rerolled, potentially additional hint can be displayed
+- fix the tutorial
+  - it should not re-roll untill the right input is made 
 - add score tracking
   - display the number of right and wrong guesses over the game
 - store image files and answers in the .txt file
   - very powerfull practice, it will allow to switch the content of the game simply by switching the .txt file
   - since different images will need to be loaded, the .txt file can be stored along them in separate interchangable folder
+- make working font adjustment
+  - like really, it seems like some sort of exponential-ish function
+  - the letters are not of the same graphical length anyways
+  - there totally should be some functions for that
