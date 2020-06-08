@@ -157,4 +157,14 @@ void keyPressed() {                             //button action listener, text i
 
 ### FURTHER DEVELOPMENT
 
-- 
+- add more images
+- diversify the game
+  - it can basically be used as an image memo, with biology diagrams for instance
+- consider some design choices
+  - the input answer may stay with disabled input after verification (currently causing too much coding trouble to be resoved quickly)
+  - upon wrong answer the image may stay instead of being rerolled, potentially additional hint can be displayed
+- add score tracking
+  - display the number of right and wrong guesses over the game
+- store image files and answers in the .txt file
+  - very powerfull practice, it will allow to switch the content of the game simply by switching the .txt file
+  - since different images will need to be loaded, the .txt file can be stored along them in separate interchangable folder
