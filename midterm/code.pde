@@ -19,7 +19,7 @@ class Circle{
     tex = loadImage(t);
     tex.resize(int(2*rad), int(2*rad));
     dir = new PVector(1, 0);
-    mass = 1;
+    mass = 0.5;
   }
   
   Circle clone(){
@@ -36,15 +36,16 @@ class Circle{
   
   boolean touch(Circle C){
     if(dist(pos.x, pos.y, C.pos.x, C.pos.y) <= rad+C.rad){
-      //pos.add(PVector.sub(pos, C.pos).mult(0.2));
-      //C.pos.add(PVector.sub(C.pos, pos).mult(0.2));
-      return (pos.x-C.pos.x)*(vel.x-C.vel.x)+(pos.y-C.pos.y)*(vel.y-C.vel.y) < 0;
+      boolean ret = (pos.x-C.pos.x)*(vel.x-C.vel.x)+(pos.y-C.pos.y)*(vel.y-C.vel.y) < 0;
+      pos.add(PVector.sub(pos, C.pos).mult(0.1));
+      C.pos.add(PVector.sub(C.pos, pos).mult(0.1));
+      return ret;
     }
     return false;
   }
   
   void move(){
-    vel.limit(500*tension);
+    vel.limit(400*tension);
     pos = pos.add(vel);
     pos.set(constrain(pos.x, rad, height-rad), constrain(pos.y, rad, height-rad));
     if(vel.mag()!=0) dir = vel.copy().normalize();
@@ -65,8 +66,8 @@ class Circle{
   }
   
   void collidewalls(){
-    if( (pos.x<=rad && vel.x<0) || (pos.x>=600-rad && vel.x>0) ) vel.x = -vel.x;
-    if( (pos.y<=rad && vel.y<0) || (pos.y>=600-rad && vel.y>0) ) vel.y = -vel.y;
+    if( (pos.x<=rad && vel.x<0) || (pos.x>=width-rad && vel.x>0) ) vel.x = -vel.x;
+    if( (pos.y<=rad && vel.y<0) || (pos.y>=height-rad && vel.y>0) ) vel.y = -vel.y;
   }
   
   void slow(){
@@ -84,8 +85,8 @@ class Circle{
   }
   
   void collide(Circle C){
-    vel.limit(500*tension);
-    C.vel.limit(500*tension);
+    vel.limit(400*tension);
+    C.vel.limit(400*tension);
     float t = atan( (pos.y-C.pos.y)/(pos.x-C.pos.x) );
     float vr = vel.x*cos(t) + vel.y*sin(t);
     float vt = vel.x*sin(t) + vel.y*cos(t);
@@ -216,9 +217,9 @@ class Boss extends Hole{
   
   void shoot(){
     float ang;
-    for(int i=0; i<8; i++){
-      ang = i*PI/4;
-      B2.append(new BossBullet(20, pos.x+rad*cos(ang), pos.y+rad*sin(ang), 25*cos(ang), 25*sin(ang)));
+    for(int i=0; i<12; i++){
+      ang = i*PI/6;
+      B2.append(new BossBullet(20, pos.x+rad*cos(ang), pos.y+rad*sin(ang), 10*cos(ang), 15*sin(ang)));
     }
   }
   
@@ -403,7 +404,7 @@ class BossList extends HoleList{
   
   void update(){
     super.update();
-    if(WIN==0 && frameCount%100==0) shoot();
+    if(WIN==0 && frameCount%50==0) shoot();
   }
   
   void shoot(){
@@ -425,7 +426,7 @@ class BossBulletList extends BulletList{
     Circle temp;
     for(int i=0; i<C.size(); i++){
       temp = C.get(i);
-      if(temp.pos.x<=temp.rad || temp.pos.x>=600-temp.rad || temp.pos.y<=temp.rad || temp.pos.y>=600-temp.rad){
+      if(temp.pos.x<=temp.rad || temp.pos.x>=width-temp.rad || temp.pos.y<=temp.rad || temp.pos.y>=height-temp.rad){
         C.remove(i);
         continue;
       }
@@ -458,7 +459,8 @@ void textButton(float x, float y, float w, float h, String text){
 float fric, tension;
 CircleList C, initC;
 PlayerList P, initP;
-BulletList B, B2;
+BulletList B;
+BossBulletList B2;
 HoleList H, initH;
 int WIN;
 int stage;
@@ -481,11 +483,11 @@ void setup(){
   //randomSeed(0);
   
   int f = 25;
-  size(600, 600);
+  size(750, 750);
   frameRate(f);
   
   fric = 0.25/f;
-  tension = 2.5/f;
+  tension = 2.0/f;
   
   falcon = loadImage("falcon.png");
   hole = loadImage("hole.png");
@@ -533,11 +535,11 @@ void setNew(){
   boolean ok;
   for(int i=0; i<h; i++){
     tempR = random(100)+25;
-    tempV = new PVector(random(600-2*tempR)+tempR, random(600-2*tempR)+tempR);
+    tempV = new PVector(random(width-2*tempR)+tempR, random(height-2*tempR)+tempR);
     H.append(new Hole(tempR, tempV.x, tempV.y));
   }
   for(int i=0; i<p; i++){
-    tempV = new PVector(random(600-50)+25, random(600-50)+25);
+    tempV = new PVector(random(width-50)+25, random(height-50)+25);
     ok = true;
     for(int j=0; j<H.length(); j++){
       if(H.get(j).inside(tempV.x, tempV.y)){
@@ -554,7 +556,7 @@ void setNew(){
   }
   for(int i=0; i<c; i++){
     tempR = 25*(random(1.5)+0.5);
-    tempV = new PVector(random(600-2*tempR)+tempR, random(600-2*tempR)+tempR);
+    tempV = new PVector(random(width-2*tempR)+tempR, random(height-2*tempR)+tempR);
     ok = true;
     for(int j=0; j<H.length(); j++){
       if(H.get(j).inside(tempV.x, tempV.y)){
@@ -595,11 +597,11 @@ void setBoss(){
   boolean ok;
   for(int i=0; i<h; i++){
     tempR = 125;
-    tempV = new PVector(random(600-2*tempR)+tempR, random(600-2*tempR)+tempR);
+    tempV = new PVector(random(width-2*tempR)+tempR, random(height-2*tempR)+tempR);
     H.append(new Boss(tempR, tempV.x, tempV.y, 10));
   }
   for(int i=0; i<p; i++){
-    tempV = new PVector(random(600-50)+25, random(600-50)+25);
+    tempV = new PVector(random(width-50)+25, random(height-50)+25);
     ok = true;
     for(int j=0; j<H.length(); j++){
       if(abs(H.get(j).pos.x-tempV.x)<=125){
@@ -616,7 +618,7 @@ void setBoss(){
   }
   for(int i=0; i<c; i++){
     tempR = 25*(random(1.5)+0.5);
-    tempV = new PVector(random(600-2*tempR)+tempR, random(600-2*tempR)+tempR);
+    tempV = new PVector(random(width-2*tempR)+tempR, random(height-2*tempR)+tempR);
     ok = true;
     for(int j=0; j<H.length(); j++){
       if(abs(H.get(j).pos.x-tempV.x)<=125){
@@ -649,6 +651,7 @@ void restart(){
   C = new CircleList(initC);
   H = new BossList(initH);
   B = new BulletList();
+  B2 = new BossBulletList();
   
   WIN = 2;
   
@@ -693,6 +696,7 @@ void nextScreen(){
 
   if(mousePressed || (keyPressed && key == ' ')){
     if(isBoss()) showme.play();
+    frameCount = 0;
     WIN = 0;
   }
 }
