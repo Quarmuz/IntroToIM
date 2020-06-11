@@ -1,5 +1,67 @@
+//================================================================//
+//
+// MIDTERM PROJECT
+// Krzysztof Warmuz ktw272
+//
+// The user controlls a small spaceship and is supposed to clear
+// all meteorites by pushing them into the black holes and
+// progress to the next stage. It can be done either by colliding
+// or shooting bullets at them. If the player falls him-or-herself
+// into one of the black holes - it means defeat and the stage is
+// restarted.
+//
+// The control of the spaceship is taken by clicking it with mouse
+// and pulling back a sling. Releasing the string fuels the ship
+// in the direction opposite to the pull. Bullets can be shoot by
+// spacebar.
+//
+// The ammount of meteorites and black holes is randomized, but
+// its upper cap increases with each stage. The initial positions
+// are also random.
+//
+// Every fifth stage is upgraded to the boss stage, where black
+// holes are replaced with the moving enemy. The rules are the
+// same, push all meteorites into the boss avoiding falling in
+// yourself.
+//
+//================================================================//
+
+
+
+                                                        //========//
+                                                        // IMPORTS
+                                                        //========//
+
+//================================================================//
+// import the sound library
+//================================================================//
+
 import processing.sound.*;
 
+
+                                                //================//
+                                                // OBJECT CLASSES
+                                                //================//
+
+//================================================================//
+// Circle superclass,
+// all in-game objects inherit from it
+//   - position, velocity radius and texture of an object
+//   - constructor and copy constructor (unused, only for the sake
+//     of generality)
+//   - functions for touching or being inside the object
+//     - touch function additionally adds small 'pushback' effect
+//       if one object would be to intersect another
+//   - function for changing movement, including slowing down and
+//     colliding with walls or other Circles
+//     - collisions are based on mass-related normal velocity
+//       exhcange
+//   - display function, including the direction-related rotation
+//   - update facade function, calls all functions that are needed
+//     for per-frame update
+//   - shoot function (again, unused and kept for the sake of
+//     generality
+//================================================================//
 
 class Circle{
   
@@ -104,6 +166,17 @@ class Circle{
   
 }
 
+
+//================================================================//
+// Player class
+// Circle controlled by player via mouse and keybord
+//   - overwritten usabel clone function
+//   - display function adding pullback line
+//   - update function adding pullback-controlle velocity addition
+//   - overwritten usable shoot function, (called in action
+//     listenersby spacebar)
+//================================================================//
+
 class Player extends Circle{
   
   boolean pull;
@@ -146,6 +219,11 @@ class Player extends Circle{
 }
 
 
+//================================================================//
+// Bullet class
+// (created by shoot function)
+//================================================================//
+
 class Bullet extends Circle{
   
   Bullet(float r, float pX, float pY, float vX, float vY){
@@ -155,6 +233,12 @@ class Bullet extends Circle{
 
 }
 
+
+//================================================================//
+// Puck class
+// Objects indirectly controlled by Player or Bullet collissions
+//   - overwritten usabel clone function
+//================================================================//
 
 class Puck extends Circle{
   
@@ -170,6 +254,12 @@ class Puck extends Circle{
 }
 
 
+//================================================================//
+// Hole class
+// Non-controlled objects 'sucking in' both Player and Pucks
+//   - overwritten usabel clone function
+//================================================================//
+
 class Hole extends Circle{
   
   Hole(float r, float pX, float pY){
@@ -182,6 +272,21 @@ class Hole extends Circle{
   
 }
 
+
+//================================================================//
+// Boss class
+// Self-controlled type of Hole
+//   - overwritten usabel clone function
+//   - overwritten display function including 'look-at-Player'
+//     txture altering
+//     - one texture to look right and other to look left
+//     - seems like refletion matrices in Processing are
+//       non-trivial
+//   - slowing function overwrittento do nothing (maintain
+//     movement)
+//   - overwritten usable shoot function (called periodically by
+//     update function of aggregating object)
+//================================================================//
 
 class Boss extends Hole{
   
@@ -226,6 +331,14 @@ class Boss extends Hole{
 }
 
 
+//================================================================//
+// BossBullet class
+// alternative type of bullets
+// (created by Boss class shoot function)
+//   - again, overwritten display function including
+//     'look-at-Player' txture altering
+//================================================================//
+
 class BossBullet extends Bullet{
   
   PImage tex2;
@@ -253,6 +366,20 @@ class BossBullet extends Bullet{
 
 }
 
+
+
+                                            //====================//
+                                            // AGGREGATION CLASSES
+                                            //====================//
+
+//================================================================//
+// CircleList class
+// General class for aggregating Circle class objects
+//   - indirect getters and setters for ArrayList of Circles
+//   - update function for all aggregated objects
+//   - collide functions checking for all possible collisions
+//     with other aggregating object or self
+//================================================================//
 
 class CircleList{
   
@@ -317,6 +444,13 @@ class CircleList{
 }
 
 
+//================================================================//
+// PlayerList class
+// stores Player class object
+//   - added shoot functions calling shoot for all aggregated
+//     Players
+//================================================================//
+
 class PlayerList extends CircleList{
   
   PlayerList(){
@@ -335,6 +469,14 @@ class PlayerList extends CircleList{
   
 }
 
+
+//================================================================//
+// BulletList class
+// stores Bullet class objects
+//   - overwritten update function removing bullets after they
+//     slow down beneath certain treshold
+//   - updated collide function to remove bullets upon collisions
+//================================================================//
 
 class BulletList extends CircleList{
   
@@ -367,6 +509,14 @@ class BulletList extends CircleList{
 }
 
 
+//================================================================//
+// HoleList class
+// aggregates Hole class objects
+//   - updated collide function to remove objects that fall into
+//     the Hole
+//     - checks for inside rather than touch function
+//================================================================//
+
 class HoleList extends CircleList{
   
   HoleList(){
@@ -392,6 +542,17 @@ class HoleList extends CircleList{
 }
 
 
+//================================================================//
+// BossList class
+// type of HoleList that aggregates Boss class objects
+//   - overwritte update function to periodically call shoot
+//     function
+//     - active only when WIN state variable is set to active game
+//       (0)
+//   - added shoot function that calls shoot for all aggregated
+//     Bosses
+//================================================================//
+
 class BossList extends HoleList{
   
   BossList(){
@@ -416,6 +577,13 @@ class BossList extends HoleList{
 }
 
 
+//================================================================//
+// BossBulletList class
+// type of BulletList that aggregate BossBullet class objects
+//   - overwritten update function so that BossBullets disappear
+//     upon reaching the walls
+//================================================================//
+
 class BossBulletList extends BulletList{
   
   BossBulletList(){
@@ -439,6 +607,16 @@ class BossBulletList extends BulletList{
 
 
 
+                                          //======================//
+                                          // NON-OBJECT INSTANCES
+                                          //======================//
+
+//================================================================//
+// textButton function
+// draws a textfield inof specified position, size and text
+// called in between levels (WIN state variable 2)
+//================================================================//
+
 void textButton(float x, float y, float w, float h, String text){
   
   pushMatrix();
@@ -455,6 +633,20 @@ void textButton(float x, float y, float w, float h, String text){
 }
 
 
+                                              //==================//
+                                              // GLOBAL VARIABLES
+                                              //==================//
+
+//================================================================//
+// global variables
+//   - variables for aggregating objects
+//     - since Players, Pucks, and Holes are refreshed upon lose
+//       additional initial-state lists are added
+//   - state variables for game state (WIN) and current stage
+//     (stage)
+//   - image variables for textures and soundfile variables for
+//     sound effects and music
+//================================================================//
 
 float fric, tension;
 CircleList C, initC;
@@ -462,6 +654,7 @@ PlayerList P, initP;
 BulletList B;
 BossBulletList B2;
 HoleList H, initH;
+
 int WIN;
 int stage;
 
@@ -477,6 +670,21 @@ SoundFile goodjob;
 SoundFile disqualified;
 
 
+                                              //==================//
+                                              // RUNNING FUNCTIONS
+                                              //==================//
+
+//================================================================//
+// setup function
+//   - randomSeed disabled by default
+//   - framerate controlled by int variable associated with all
+//     speed coefficients
+//     - failed to achieve smooth framerate-independent scaling of
+//       velocities (framerate seems not to be fully linear)
+//   - loading images and sounds
+//     - adjusting some volumes
+//   - setting current level to 0 and creating new stage 
+//================================================================//
 
 void setup(){
 
@@ -512,6 +720,19 @@ void setup(){
   setNew();
 
 }
+
+
+//================================================================//
+// setNew sunction
+// sets new stage
+//   - advancces the current stage by 1
+//   - calls setBoss instead if boss stage is required
+//   - initiates aggregating objects of semi-random length and
+//     copies their initial conditions
+//     - several fall loops ensure no object is created initially
+//       inside a Hole
+//   - sets WIN state variable to 'prepare for new stage' (2)
+//================================================================//
 
 void setNew(){
 
@@ -581,6 +802,12 @@ void setNew(){
 }
 
 
+//================================================================//
+// setBoss function
+// sets the boss stage, analogous to setNew
+//   - ensures no objects are created initially in Boss's path
+//================================================================//
+
 void setBoss(){
   
   P = new PlayerList();
@@ -645,6 +872,15 @@ void setBoss(){
   
 }
 
+
+//================================================================//
+// restart function
+// restarts current stage
+//   - restores initial condition for agggregating objects
+//     - bullets are cleared instead
+//   - sets the WIN state variable to 'prepare for stage' (2)
+//================================================================//
+
 void restart(){
   
   P = new PlayerList(initP);
@@ -657,6 +893,11 @@ void restart(){
   
 }
 
+
+//================================================================//
+// draw function
+// delegates the running game depending on WIN state variable
+//================================================================//
 
 void draw(){
   
@@ -673,6 +914,14 @@ void draw(){
 }
 
 
+//================================================================//
+// winScreen function
+// marks successfull completion of stage (WIN = 1)
+//   - white-shade the screen
+//   - display victory message via textbutton function
+//   - create new stage upon mouse or spacebar pressed
+//================================================================//
+
 void winScreen(){
 
   play();
@@ -685,6 +934,15 @@ void winScreen(){
   
 }
 
+
+//================================================================//
+// nextScreen function
+// marks preparation for the current stage (WIN = 2)
+//   - display the stage number
+//   - upon mouse pressed set WIN state variable to game running
+//     (0)
+//     - play boss-related sounds if boss stage is initiated
+//================================================================//
 
 void nextScreen(){
 
@@ -702,6 +960,14 @@ void nextScreen(){
 }
 
 
+//================================================================//
+// loseScreen function
+// marks failure to complete the stage (WIN = -1)
+//   - black-shade the screen
+//   - display defeat message via textbutton function
+//   - restart the stage upon mouse or spacebar pressed
+//================================================================//
+
 void loseScreen(){
 
   play();
@@ -713,6 +979,24 @@ void loseScreen(){
   if(mousePressed || (keyPressed && key == ' ')) restart();
   
 }
+
+
+//================================================================//
+// play function
+// marks successfull completion of stage (WIN = 1)
+//   - run collissions and updates
+//     - Pucks collide with everything
+//     - Players don't collide with self (only one PLayer
+//       considered)
+//     - Bullets and Holes collide with Players and Pucks, but
+//       not with self or each other
+//   - resolve the stage if the number of Players or Pucks
+//     reaches 0
+//     - Players - defeat, Pucks - victory
+//   - play boss-related sounds if boss stage gets resolved
+//     - restore original music if the completion of boss stage
+//     - was successful
+//================================================================//
 
 void play(){
   background(background);
@@ -749,10 +1033,29 @@ void play(){
 }
 
 
+
+                          //======================================//
+                          // HELPER FUNCTIONS AND ACTION LISTENERS
+                          //======================================//
+
+//================================================================//
+// isBoss helper function
+// states whether the current stage is a boss stage
+//   -set boss stage to be every fifth
+//================================================================//
+
 boolean isBoss(){
   return stage%5==0;
 }
 
+
+//================================================================//
+// keyPressed action listener
+// used by Player to shoot when spacebar is pressed
+//   - disbled wif state variable WIN does not indicate running
+//     game (0)
+//   - also plays the laser sound effect
+//================================================================//
 
 void keyPressed(){
   
