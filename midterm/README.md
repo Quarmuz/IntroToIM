@@ -1,3 +1,5 @@
+EDIT: the documented code was uploaded. The README file will be updates soon
+
 Sorry for being late with deliverables. The code works (for me), but is an encyclopedic example of inconsistency,
 unintuitional variable naming, bad OOP patterns and mixing several styles. Also - it lacks documentation.
 
