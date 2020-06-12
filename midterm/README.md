@@ -49,7 +49,8 @@ Every fifth stage the black holes are replaced with a boss entity, capable of re
 
 ### VIDEO
 
-![](mid.mp4)
+(couldn't embed, for the video consult mid.mp4 file. sorry for low quality, Github wouldn't allow allow upload without reduction.)
+
 
 ### CODE
 
