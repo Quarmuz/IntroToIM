@@ -62,3 +62,6 @@ For the code consult the code.pde file, because with documentation it is over 10
   - adding more variety to the bosses, such as player-directed movement or gravity-pull, could make the fights less repetetive and more challenging.
 - bug fixes
   - the issue of self-fueling collisions occuring when object boundaries intersect in between frames was not fully resolved
+- music adjustments
+  - the regular music track and boss music track are about 4 minutes (and fitting them within the allocated Java heap space was a pain), which on most occassions is enough to cycle them effectively. Regardless, looping would still be favorable.
+  - also storing the current time of each track would allow to resume the regular music after cutting in the boss track rather then playing it from the start.
