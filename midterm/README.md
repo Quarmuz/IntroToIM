@@ -1,14 +1,40 @@
-EDIT: the documented code was uploaded. The README file will be updates soon
+## MIDTERM ASSIGNMENT
 
-Sorry for being late with deliverables. The code works (for me), but is an encyclopedic example of inconsistency,
-unintuitional variable naming, bad OOP patterns and mixing several styles. Also - it lacks documentation.
+### RATIONALE
 
-Testing and optimising the game took much more time than anticipated, thus I am still working on making the code
-somewhat readable. I mean, I can read it, but that's not the point.
+The developed program is a simple game in which player takes command of a small and roundish spaceship with the objective to clear the stage by moving all the meteorites to the black holes and proceed to the next one.
 
-One of the issues is, since I had very limited time, instead of starting from scratch I developed on the existing project
-from June 3, without applying OOP changes I suggested myself (I really SHOULD HAVE done it on the decorator design pattern!).
+The control of the ship is based on sling-type pullback that fuels the ship in the direction opposite to the pull. Somehow counterintuitional mechanic makes the game both distinct and challenging. The meteors can be moved indirectly via collisions with the ship or bullets that player can shoot in the direction of motion. Player can collide with own bullets, experiencing similar pushback. The ship falling into the black hole results in failure and reset of the current stage.
 
-Anyways. I have a working project and I am presenting it in class. I hope to tidy the code up promptly.
+Every fifth stage the black holes are replaced with a boss entity, capable of repetitive motion and shooting own bullets. The aim remains unchanged, push all the meteorites into the boss avoiding falling in yourself.
 
-Also - the self-amplifying collissions still have not been resolved :(
+
+### PROCESS AND DESIGN CHOICES
+
+
+
+
+### RESUTLS
+
+- \
+![](1.png)
+
+- \
+![](2.png)
+
+
+### CODE
+
+For the code consult the code.pde file, because with documentation it is over 1000 lines.
+
+
+### FURTHER DEVELOPMENT
+- restructurisation
+  - as suggested in June 3 assignment submission, embracing more suitable OOP patterns, such as decorator, will make the overall structure more flexible and allow for more efficient addition of the functionalities.
+  - keeping the object functions, such as collission effects or movement capabilities independent rather then aggregated within given type will allow to create specific objects with desired functionality packages, going beyond the limits of Player-Puck-Hole-Bullet design.
+  - This in turn would add more variety among the stages
+- rebalancing
+  - within the short time of development it was hard to assess what a balanced game playthrough would look like. In practice, smaller number of holes, however increeses the freedom of player movement, sometimes makes it hard to clear the stage. The intuitional approach of stage-proportional upper cap was fitting for the time, but caould be optimized further.
+  - adding more variety to the bosses, such as player-directed movement or gravity-pull, could make the fights less repetetive and more challenging.
+- bug fixes
+  - the issue of self-fueling collisions occuring when object boundaries intersect in between frames was not fully resolved
