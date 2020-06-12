@@ -8,10 +8,7 @@ The control of the ship is based on sling-type pullback that fuels the ship in t
 
 Every fifth stage the black holes are replaced with a boss entity, capable of repetitive motion and shooting own bullets. The aim remains unchanged, push all the meteorites into the boss avoiding falling in yourself.
 
-
-### PROCESS AND DESIGN CHOICES
-
-
+Overall, levels were chosen to be generated randomly, without a seed. The number of emerging structures (meteorites and black holes) is also random, with stage-proportional upper cap. Generation of boss stages is slightly different, but subjected to simmilar rules.
 
 
 ### RESUTLS
