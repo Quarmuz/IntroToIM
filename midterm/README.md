@@ -16,11 +16,35 @@ Every fifth stage the black holes are replaced with a boss entity, capable of re
 
 ### RESUTLS
 
-- \
+- Player, Meteorite (actually an energy sphere) and a black (actually a dark celadon) hole\
 ![](1.png)
 
-- \
+- sling-back...\
 ![](2.png)
+
+- and go!\
+![](3.png)
+
+- shoot bullets\
+![](4.png)
+
+- unce the meteorite is removed the victory massage appears\
+![](5.png)
+
+- and onto the next stage!\
+![](6.png)
+
+- sometimes things go wrong\
+![](7.png)
+
+- few stages pass and suddenly the music changes\
+![](8.png)
+
+- a boss fight...\
+![](9.png)
+
+- ...continues\
+![](10.png)
 
 
 ### CODE
