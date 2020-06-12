@@ -47,6 +47,10 @@ Every fifth stage the black holes are replaced with a boss entity, capable of re
 ![](10.png)
 
 
+### VIDEO
+
+![](mid.mp4)
+
 ### CODE
 
 For the code consult the code.pde file, because with documentation it is over 1000 lines.
