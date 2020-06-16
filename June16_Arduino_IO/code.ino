@@ -18,4 +18,5 @@ void loop() {
     if(temperatureSensor < 0) analogWrite(12, -temperatureSensor*100);
     else digitalWrite(12, LOW);
   }
+  else digitalWrite(12, LOW);
 }
