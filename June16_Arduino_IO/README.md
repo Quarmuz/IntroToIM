@@ -10,7 +10,7 @@ The temperature sensor toggles on the red led. Ideally the brightness would be p
 ### BUILD
 
 - the scheme\
-![](o.jpg)
+![](0.jpg)
 
 - initially the potentiometer (blue) toggled 'LOW', no light\
 ![](1.jpg)
