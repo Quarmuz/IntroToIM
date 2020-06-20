@@ -10,7 +10,7 @@ The user is playing the sound by pressing the button. The pitch is dependent on 
 ### BUILD
 
 - the scheme\
-![](0.jpg)
+![](00.jpg)
 
 - circuit setup\
 ![](1.jpg)
