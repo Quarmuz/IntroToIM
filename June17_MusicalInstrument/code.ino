@@ -26,12 +26,7 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   cm = microsecondsToCentimeters(duration);
   
-  //int distance = analogRead(A0);
   int button = digitalRead(A1);
-  //Serial.println("distance:");
-  //Serial.println(distance);
-  //Serial.println("button:");
-  //Serial.println(button);
   if(button==HIGH){
     tone(speakerPinNumber, notes[constrain(map(cm, 0, 16, 0, numberOfNotes-1), 0, numberOfNotes-1)], noteDuration);
     delay(noteDuration*1.3);
