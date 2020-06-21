@@ -15,6 +15,9 @@ Ideally, the motor would have two working LEDs indicating the direction of rotat
 - circuit setup\
 ![](1.jpg)
 
+- the game otlay is relatively simple\
+![](2.png)
+
 
 ### CODE
 
