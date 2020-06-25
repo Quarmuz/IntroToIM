@@ -36,35 +36,32 @@ Overall, levels were chosen to be generated randomly, without a seed. The number
 - Player, Meteorite (actually an energy sphere) and a black (actually a dark celadon) hole\
 ![](1.png)
 
-- pressing the red button charges the engine (red line)\
+- rotor input changes the direction. direction also changes upon collissions\
 ![](2.png)
 
-- releasing the button adds forward velocity proportional to the charge\
+- pressing the red button charges the engine (red line). releasing the button adds forward velocity proportional to the charge\
 ![](3.png)
 
-- rotor input changes the direction. direction also changes upon collissions\
+- blue button shoots bullets\
 ![](4.png)
 
-- blue button shoots bullets\
+- once the meteorite is removed the victory massage appears\
 ![](5.png)
 
-- unce the meteorite is removed the victory massage appears\
+- and onto the next stage!\
 ![](6.png)
 
-- and onto the next stage!\
+- sometimes things go wrong\
 ![](7.png)
 
-- sometimes things go wrong\
+- few stages pass and suddenly the music changes\
 ![](8.png)
 
-- few stages pass and suddenly the music changes\
+- the boss fight...\
 ![](9.png)
 
-- a boss fight...\
-![](10.png)
-
 - ...continues\
-![](11.png)
+![](10.png)
 
 
 ### VIDEO
