@@ -19,10 +19,16 @@ Overall, levels were chosen to be generated randomly, without a seed. The number
 ### ARDUINO SETUP
 
 - circuit scheme\
-![](a1.png)
+![](a1.jpg)
 
 - the controller\
-![](a2.png)
+![](a2.jpg)
+
+- the controller - rotor input\
+![](a3.jpg)
+
+- the controller - buttons and LEDs\
+![](a4.jpg)
 
 
 ### RESULTS
