@@ -1,5 +1,21 @@
+//================================================================//
+//
+// A simple game of pong, player moves the racket to bounce the
+// ball up. Input is taken from serial string from Arduino
+// controller.
+//
+//================================================================//
+
+
 import processing.serial.*;
 
+
+//================================================================//
+// Ball class
+// - creator
+// - functions for display, movement, collission with walls or
+//   player and a facade function calling all of them
+//================================================================//
 
 class Ball{
   
@@ -46,6 +62,13 @@ class Ball{
 }
 
 
+//================================================================//
+// Player class
+// - creator
+// - functions for display, movement, passing the walls  and a
+//   facade function calling all of them
+//================================================================//
+
 class Player{
   
   PVector pos, vel;
@@ -84,6 +107,15 @@ class Player{
 }
 
 
+
+//================================================================//
+// global variables
+// - constant for gravity
+// - string read from the controller, translated to player motion
+// - player and ball objects
+// - serial port
+//================================================================//
+
 float grav = 0.9;
 float inByte;
 Player P;
@@ -91,6 +123,11 @@ Ball B;
 
 Serial myPort;
 
+
+//================================================================//
+// setup function
+// - set size, set port and initiate the game
+//================================================================//
 
 void setup(){
 
@@ -105,6 +142,14 @@ void setup(){
 
 }
 
+
+//================================================================//
+// setNew function
+// - resets the player position and generates a ball with random
+//   position (within certain range) and horizontal velocity
+//   component
+//================================================================//
+
 void setNew(){
 
   B = new Ball(random(width-60), random(20)+90, random(20)-10, 0);
@@ -112,6 +157,12 @@ void setNew(){
   
 }
 
+
+//================================================================//
+// draw function
+// - updates Player and Ball objects
+// - sets new game if the ball falls below the player
+//================================================================//
 
 void draw(){
   
@@ -124,6 +175,12 @@ void draw(){
   
 }
 
+
+//================================================================//
+// serial action listener
+// - translates string sent from Arduino into an inByte string,
+//   which is used as an argument for player motion
+//================================================================//
 
 void serialEvent(Serial myPort){
  
