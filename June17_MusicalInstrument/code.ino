@@ -1,3 +1,14 @@
+//================================================================//
+//
+// The code uses pitches.h to make a sound with a pitch depending
+// of the reading of the distance sensor. The sound is made by
+// pressing the button. The speaker volume can be controlled with
+// a potentiometer, while for the distance sensor a simple movement
+// of hand is enough.
+//
+//================================================================//
+
+
 #include "pitches.h"
 
 const int pingPin = 7;
