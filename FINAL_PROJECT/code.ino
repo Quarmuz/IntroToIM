@@ -9,6 +9,12 @@
 //================================================================//
 
 
+//================================================================//
+// setup function
+// - takes A0-1 as the rotor input
+// - takes A4-5 as the button inputs
+//================================================================//
+
 void setup() {
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
@@ -17,6 +23,17 @@ void setup() {
   Serial.begin(9600);
   Serial.println("HELLO!");
 }
+
+
+
+//================================================================//
+// setup function
+// - initialize the rotor inputs and flip the left-rotation signals
+// - send serial message on rotation
+// - read state of each button
+// - send serial message on each button
+// - delay not to overmessage the Processing 
+//================================================================//
 
 void loop() {
   
